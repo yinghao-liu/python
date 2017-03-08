@@ -1,7 +1,6 @@
-# python
+# 变量和数据类型
 
-python test
-n中的变量不需要声明，给变量赋值即可创建该变量，使用del var_name可以删除变量var_name，变量本身没有类型，类型是指变量所指的内存对象中对象的类型，有以下几类：
+python中的变量不需要声明，给变量赋值即可创建该变量，使用del var_name可以删除变量var_name，变量本身没有类型，类型是指变量所指的内存对象中对象的类型，有以下几类：
 
 - 数字
 - 字符串 (str)
@@ -60,23 +59,23 @@ print(student)   # 输出集合，重复的元素被自动去掉
 # 成员测试
 if('Rose' in student) :
     print('Rose 在集合中')
-else :
-    print('Rose 不在集合中')
+	else :
+	    print('Rose 不在集合中')
 
 
-# set可以进行集合运算
-a = set('abracadabra')
-b = set('alacazam')
+		# set可以进行集合运算
+		a = set('abracadabra')
+		b = set('alacazam')
 
-print(a)
+		print(a)
 
-print(a - b)     # a和b的差集
+		print(a - b)     # a和b的差集
 
-print(a | b)     # a和b的并集
+		print(a | b)     # a和b的并集
 
-print(a & b)     # a和b的交集
+		print(a & b)     # a和b的交集
 
-print(a ^ b)     # a和b中不同时存在的元素
+		print(a ^ b)     # a和b中不同时存在的元素
 
 ```
 
@@ -87,7 +86,6 @@ print(a ^ b)     # a和b中不同时存在的元素
 dict = {}
 dict['one'] = "1 - 菜鸟教程"
 dict[2]     = "2 - 菜鸟工具"
-
 tinydict = {'name': 'runoob','code':1, 'site': 'www.runoob.com'}
 
 
