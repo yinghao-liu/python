@@ -2,16 +2,16 @@
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
-# 使用minidom解析器打开 XML 文档
+# open xml with minidom
 DOMTree = xml.dom.minidom.parse("movies.xml")
 collection = DOMTree.documentElement
 if collection.hasAttribute("shelf"):
    print ("Root element : %s" % collection.getAttribute("shelf"))
 
-# 在集合中获取所有电影
+# get all the movies 
 movies = collection.getElementsByTagName("movie")
 
-# 打印每部电影的详细信息
+# print details of every movies 
 for movie in movies:
    print ("*****Movie*****")
    if movie.hasAttribute("title"):
@@ -30,6 +30,6 @@ for movie in movies:
 
 
 if __name__ == "__main__":
-	#print("I'm main")
+	print("main")
 else:
-	print("I'm module")
+	print("module")
