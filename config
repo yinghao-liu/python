@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config ver="1">
+    <!-- comment -->
+	<sub>
+		<!-- 风格1 -->
+        <Item Id="project" >
+            <Col Id="mode" Mode="2" />
+            <Col Id="name" Name="francis" />
+            <Col Id="age"  Age="18"/>
+        </Item>
+
+        <!-- 风格2 -->
+        <Item Id="project">
+			<Col Mode="2" Name="francis" Age="18"/>
+        </Item>
+
+        <!-- 风格3 -->
+        <project>
+			<mode>2</mode>
+			<name>francis</name>
+			<age>18</age>
+        </project>
+
+	</sub>
+</config>

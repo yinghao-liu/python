@@ -1,56 +1,21 @@
-#!/usr/bin/python
-# generate https.pem with following command:
-# openssl req -new -x509 -keyout https.pem -out https.pem -days 3650 -nodes
-# 
+#!/usr/bin/env python3
+import urllib.request
+import urllib.error
 
 
-import BaseHTTPServer
-import SimpleHTTPServer
-import thread
-import ssl
-import sys
+url="http://www.asciima.com/logo.jpg"
+head={}
+#head["If-Modified-Since"]="Tue, 07 Jun 2016 01:27:43 GMT"
+head["User-Agent"]="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+try:
+	request=urllib.request.Request(url, headers=head)
+	html=urllib.request.urlopen(request)
+except urllib.error.HTTPError as err:
+	print("err is {}, errno is {}, err reason is {}, headers is {}".format(err, err.code, err.reason, err.headers))
 
-HTTPS_PORT = 443
-HTTP_PORT  = 8000
+rst=html.read()
+html.close()
 
-
-class RequestHandle(BaseHTTPServer.BaseHTTPRequestHandler):
-	Page = """\
-		<html>
-			<body>
-				<p>this is https server</p>
-			</body>
-		</html>
-		"""
-	def do_GET(self):
-		self.send_response(200)
-		self.send_header("Content-Type","text/html")
-		self.send_header("Content-Length",str(len(self.Page)))
-		self.end_headers()
-		self.wfile.write(self.Page)
-
-def https_server(PORT):
-	server=BaseHTTPServer.HTTPServer(('0.0.0.0',PORT),RequestHandle)
-	server.socket=ssl.wrap_socket(server.socket, certfile='./https.pem', server_side=True)
-	server.serve_forever()
-
-
-def http_server(PORT):
-	#server=BaseHTTPServer.HTTPServer(('0.0.0.0',PORT),SimpleHTTPServer.SimpleHTTPRequestHandler)
-	server=BaseHTTPServer.HTTPServer(('0.0.0.0',PORT),RequestHandle)
-	server.serve_forever()
-
-def main():
-	#thread.start_new_thread(https_server, (HTTPS_PORT,))
-	thread.start_new_thread(http_server, (HTTP_PORT,))
-	while True:
-		pass
-
-if __name__ == '__main__':
-	try:
-		main()
-	except KeyboardInterrupt:
-		print "you kill me!"
-		sys.exit()
-	except SSLError:
-		pass
+fd = open("aa.jpg", "wb")
+fd.write(rst)
+fd.close()
