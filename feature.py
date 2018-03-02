@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
-import urllib.request
-import urllib.error
+import xml.dom.minidom
+xml_file = "config.xml"
+def xml_config_init():
+	with xml.dom.minidom.parse(xml_file) as dom:
+		sub_list = dom.getElementsByTagName("sub")
+		for sub_index in range(sub_list.length):
+			sub = sub_list.item(sub_index)
+
+			item_list = sub.childNodes
+			print(item_list)
+			print(item_list.length)
+			for item_index in range(item_list.length):
+				item = item_list.item(item_index)	
+
+				print(item.nodeType, ":", item)
 
 
-url="http://www.asciima.com/logo.jpg"
-head={}
-#head["If-Modified-Since"]="Tue, 07 Jun 2016 01:27:43 GMT"
-head["User-Agent"]="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
-try:
-	request=urllib.request.Request(url, headers=head)
-	html=urllib.request.urlopen(request)
-except urllib.error.HTTPError as err:
-	print("err is {}, errno is {}, err reason is {}, headers is {}".format(err, err.code, err.reason, err.headers))
-
-rst=html.read()
-html.close()
-
-fd = open("aa.jpg", "wb")
-fd.write(rst)
-fd.close()
+if "__main__" == __name__:
+	xml_config_init()
