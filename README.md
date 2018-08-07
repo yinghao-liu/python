@@ -6,6 +6,5 @@ learn python,here is the links by my myself
 
 [The Python Standard Library](https://docs.python.org/3.5/library/index.html)
 
-### 解析xml文件
 
 
