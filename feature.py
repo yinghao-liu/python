@@ -1,23 +1,38 @@
 #!/usr/bin/env python3
-import tensorflow as tf
+from http.server import HTTPServer
+from http.server import BaseHTTPRequestHandler
+HTTP_PORT  = 8000
 
-x = tf.constant([[1], [2], [3], [4]], dtype=tf.float32)
-y_true = tf.constant([[0], [-1], [-2], [-3]], dtype=tf.float32)
+class RequestHandle(BaseHTTPRequestHandler):
+	Page = """\
+		<html>
+		<body>
+		<p>this is http server</p>
+		</body>
+		</html>
+		"""
+	def do_GET(self):
+		print(type(self.wfile))
+		print(type(self.rfile))
+		self.send_response(200)
+		self.send_header("Content-Type","text/html")
+		self.send_header("Content-Length",str(len(self.Page)))
+		self.end_headers()
+		self.wfile.write(bytes(self.Page, encoding="utf8"))
+	
 
-linear_model = tf.layers.Dense(units=1)
+	def do_POST(self):
+		leng=self.headers["Content-Length"]
+		print(self.rfile.read(int(leng)))
+		self.send_response(200)
+		self.send_header("Content-Type","text/html")
+		self.send_header("Content-Length",str(len(self.Page)))
+		self.end_headers()
+		self.wfile.write(bytes(self.Page, encoding="utf8"))
 
-y_pred = linear_model(x)
-loss = tf.losses.mean_squared_error(labels=y_true, predictions=y_pred)
+def http_server(PORT):
+	server=HTTPServer(('0.0.0.0', PORT), RequestHandle)
+	server.serve_forever()
 
-optimizer = tf.train.GradientDescentOptimizer(0.08)
-train = optimizer.minimize(loss)
-
-init = tf.global_variables_initializer()
-
-sess = tf.Session()
-sess.run(init)
-for i in range(150):
-	_, loss_value = sess.run((train, loss))
-	print(loss_value)
-
-print(sess.run(y_pred))
+if "__main__" == __name__:
+	http_server(HTTP_PORT)
