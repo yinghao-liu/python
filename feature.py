@@ -1,17 +1,50 @@
 #!/usr/bin/env python3
 
-#with only do the finally suite, we still need try before with
-# refer to https://docs.python.org/3/reference/compound_stmts.html#the-with-statement
-#refer to https://www.cnblogs.com/huclouy/p/6115829.html
-try:
-	with open("aa") as fd:
-		print("open OK")
-except FileNotFoundError as a:
-	print(a.strerror)
-except:
-	print("all other exception")
-else:
-	print("if no exception")
-finally:
-	print("alway")
+### decorator
+print("------ decorator ------")
+def ff(fc):
+	print("in ff and arg is {}".format(fc))
+	return fc
+@ff
+def func_decor():
+	print("in function func_decor")
+print("---------------")
+func_decor()
+
+
+### parameter
+print("\n------ parameter ------")
+def func_param1(a, b, *c, **d):
+	print(a)
+	print(b)
+	print(c)
+	print(d)
+
+func_param1(1,2,3,4, excess=1)
+
+print("---------------")
+def func_param2(a=1, b=2, *, c=4, **d):
+	print(a)
+	print(b)
+	print(c)
+	print(d)
+
+func_param2(1,2,excess=1)
+
+#func_param2(1,2,3,excess=1)
+'''
+def func_param3(a=1, b=2, *, **d):
+	print(a)
+	print(b)
+	print(d)
 	
+func_param3()	
+'''
+### annotation
+print("\n------ annotation ------")
+def func_annot(a:print("parameter a"))->print("return annotation"):
+	print("in func_annot : test annotation")
+print("---------------")
+func_annot(1)
+
+
