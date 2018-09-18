@@ -1,50 +1,23 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
+import subprocess
 
-### decorator
-print("------ decorator ------")
-def ff(fc):
-	print("in ff and arg is {}".format(fc))
-	return fc
-@ff
-def func_decor():
-	print("in function func_decor")
-print("---------------")
-func_decor()
+if "__main__" == __name__:
+	subprocess.run("ps -ef |  grep init | grep -v grep".split(), shell=True)
+	ret=subprocess.run("ping -c2 baidu.com".split(), timeout=3, capture_output=True)
+	print(ret)
+	try:
+		subprocess.run("ping baidu.com".split(), timeout=3)
+	except subprocess.TimeoutExpired as a:
+		print("process should been killed".format(a))
+	try:
+		"""
+		when shell is True, timeout can not kill the program(ping, below), it can only kill its parent process(the shell)
+		refer to https://stackoverflow.com/questions/48763362/python-subprocess-kill-with-timeout
+		"""
+		subprocess.run("ping baidu.com", shell=True, timeout=3)
+	except subprocess.TimeoutExpired as b:
+		print("------{}-------".format(b))
 
-
-### parameter
-print("\n------ parameter ------")
-def func_param1(a, b, *c, **d):
-	print(a)
-	print(b)
-	print(c)
-	print(d)
-
-func_param1(1,2,3,4, excess=1)
-
-print("---------------")
-def func_param2(a=1, b=2, *, c=4, **d):
-	print(a)
-	print(b)
-	print(c)
-	print(d)
-
-func_param2(1,2,excess=1)
-
-#func_param2(1,2,3,excess=1)
-'''
-def func_param3(a=1, b=2, *, **d):
-	print(a)
-	print(b)
-	print(d)
 	
-func_param3()	
-'''
-### annotation
-print("\n------ annotation ------")
-def func_annot(a:print("parameter a"))->print("return annotation"):
-	print("in func_annot : test annotation")
-print("---------------")
-func_annot(1)
 
 
