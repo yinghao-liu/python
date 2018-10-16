@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 
-class dog:
-    public="this is public"
-    ___private_="this is private"
+class a:
+    me="class a"
 
+class b(a):
+    pass
+
+class c():
+    me="class c"
+
+class d(b, c):
+    pass
 
 if "__main__" == __name__:
-    a=dog()
-    print(a.public)
-    print(a._dog___private_)
+    ins=d()
+    print(ins.me) # output "class a"
