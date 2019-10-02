@@ -1,28 +1,51 @@
 #!/usr/bin/env python3
 
-class a:
-    def show( message):
-        print("this is class a, message is {}, normal".format(message))
+### decorator
+print("------ decorator ------")
+def ff(fc):
+	print("in ff and arg is {}".format(fc))
+	fc()
+	return ff
+@ff
+def func_decor():
+	print("in function func_decor")
+print("---------------")
+func_decor()
 
-class b:
-    @classmethod
-    def show(cls, message):
-        print("this is class b, message is {}, classmethod".format(message))
 
-class c:
-    @staticmethod
-    def show(message):
-        print("this is class c, message is {}, staticmethod".format(message))
-if "__main__" == __name__:
-    print(a.show)
-    print(b.show)
-    print(c.show)
-    a.show(1)
-    b.show(2)
-    c.show(3)
-    ins1=a()
-    ins2=b()
-    ins3=c()
-    ins2.show(20)
-    ins3.show(30)
-    ins1.show(10)
+### parameter
+print("\n------ parameter ------")
+def func_param1(a, b, *c, **d):
+	print(a)
+	print(b)
+	print(c)
+	print(d)
+
+func_param1(1,2,3,4, excess=1)
+
+print("---------------")
+def func_param2(a=1, b=2, *, c=4, **d):
+	print(a)
+	print(b)
+	print(c)
+	print(d)
+
+func_param2(1,2,excess=1)
+
+#func_param2(1,2,3,excess=1)
+'''
+def func_param3(a=1, b=2, *, **d):
+	print(a)
+	print(b)
+	print(d)
+	
+func_param3()	
+'''
+### annotation
+print("\n------ annotation ------")
+def func_annot(a:print("parameter a"))->print("return annotation"):
+	print("in func_annot : test annotation")
+print("---------------")
+func_annot(1)
+
+
