@@ -2,15 +2,19 @@
 
 ### decorator
 print("------ decorator ------")
-def ff(fc):
-	print("in ff and arg is {}".format(fc))
-	fc()
-	return ff
-@ff
-def func_decor():
-	print("in function func_decor")
+def decorator(fc):
+    def wrapper(i):
+        print("i is {}".format(i))
+        print("in decorator-wrapper and arg is {}".format(fc))
+        fc()
+    print("in decorator")
+    return wrapper
+
+@decorator
+def func():
+	print("in function func")
 print("---------------")
-func_decor()
+func("sss")
 
 
 ### parameter
